@@ -9,6 +9,8 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { PostModule } from '../post/post.module';
+import { join } from 'path';
+import { User } from '../post/dto/post.dto';
 
 @Module({
   imports: [
@@ -20,7 +22,11 @@ import { PostModule } from '../post/post.module';
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), '/apps/api/src/assets/schema.gql'),
+      useGlobalPrefix: true,
+      buildSchemaOptions: {
+        orphanedTypes: [User],
+      },
     }),
     PostModule,
   ],

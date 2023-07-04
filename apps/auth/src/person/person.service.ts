@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput, User } from './dto/user.dto';
+import { CreateUserInput, User, UserFilterInput } from './dto/user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -16,5 +16,9 @@ export class PersonService {
 
   findById(id: string): Promise<User> {
     return this._userRepo.findOne({ where: { id } });
+  }
+
+  findAll(userFilters?: UserFilterInput): Promise<User[]> {
+    return this._userRepo.find({ where: { ...userFilters } });
   }
 }

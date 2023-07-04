@@ -16,7 +16,7 @@ directive @shareable on FIELD_DEFINITION | OBJECT
 
 directive @link(url: String!, import: [link__Import]) on SCHEMA
 
-directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION | SCHEMA
+directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
 
 directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
 
@@ -32,6 +32,13 @@ type User {
 
 type Query {
   user(id: String!): User!
+  users(userFilters: UserFilterInput!): [User!]!
+}
+
+input UserFilterInput {
+  name: String
+  age: Int
+  email: String
 }
 
 type Mutation {

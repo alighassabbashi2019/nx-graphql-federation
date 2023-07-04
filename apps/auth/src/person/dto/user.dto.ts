@@ -41,3 +41,6 @@ export class CreateUserInput extends OmitType(User, ['id'], InputType) {}
 export class UpdateUserInput extends PartialType(
   OmitType(User, ['id', 'passowrd'], InputType)
 ) {}
+
+@InputType()
+export class UserFilterInput extends UpdateUserInput {}

@@ -9,6 +9,7 @@ import {
 } from '@nestjs/apollo';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PersonModule } from '../person/person.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { PersonModule } from '../person/person.module';
     }),
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      autoSchemaFile: true,
+      autoSchemaFile: join(process.cwd(), '/apps/auth/src/assets/schema.gql'),
+      useGlobalPrefix: true,
     }),
   ],
   controllers: [AppController],

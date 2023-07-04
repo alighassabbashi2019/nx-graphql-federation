@@ -1,4 +1,12 @@
-import { Directive, Field, Int, ObjectType } from '@nestjs/graphql';
+import {
+  Directive,
+  Field,
+  InputType,
+  Int,
+  ObjectType,
+  OmitType,
+  PartialType,
+} from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
@@ -28,9 +36,23 @@ export class Post {
   @Field((type) => Int)
   votes: number;
 
+  @Column()
   @Field()
-  authorId: string;
+  userId: string;
 
   @Field((type) => User)
   user?: User;
 }
+
+@InputType()
+export class CreatePostInput extends OmitType(
+  Post,
+  ['id', 'user'],
+  InputType
+) {}
+
+@InputType()
+export class PostFiltersInput extends PartialType(
+  OmitType(CreatePostInput, ['userId']),
+  InputType
+) {}
