@@ -11,7 +11,6 @@ export class UsersResolver {
     @Args('postFilters') postFilters: PostFiltersInput,
     @Parent() user: User
   ): Promise<Post[]> {
-    const result = await this.postService.forUser(user.id, postFilters);
     return this.postService.forUser(user.id, postFilters);
   }
 }
