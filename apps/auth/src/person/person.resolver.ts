@@ -34,8 +34,6 @@ export class PersonResolver {
 
   @Mutation((returns) => User)
   createUser(@Args('user') body: CreateUserInput) {
-    console.log(body);
-
     return this._personService.create(body);
   }
 }
