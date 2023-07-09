@@ -7,7 +7,7 @@ import {
   OmitType,
   PartialType,
 } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Directive('@extends')
@@ -17,12 +17,17 @@ export class User {
   @Directive('@external')
   id: string;
 
-  @Field((type) => [Post])
-  posts: Post[];
+  @Field((type) => [String])
+  userPostItemIds: string[];
+
+  @Field((type) => [UserPosts])
+  @Directive('@requires(fields: "userPostItemIds")')
+  userPostItems: UserPosts[];
 }
 
 @Entity()
 @ObjectType()
+@Directive('@key(fields: "id")')
 export class Post {
   @PrimaryGeneratedColumn()
   @Field((type) => Int)
@@ -35,24 +40,29 @@ export class Post {
   @Column()
   @Field((type) => Int)
   votes: number;
+}
+
+@ObjectType()
+@Entity()
+export class UserPosts {
+  @Field()
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   @Field()
   userId: string;
 
-  @Field((type) => User)
-  user?: User;
+  @Column()
+  @Field((type) => Int)
+  postId: number;
 }
 
 @InputType()
-export class CreatePostInput extends OmitType(
-  Post,
-  ['id', 'user'],
-  InputType
-) {}
+export class assignInput extends OmitType(UserPosts, ['id'], InputType) {}
 
 @InputType()
-export class PostFiltersInput extends PartialType(
-  OmitType(CreatePostInput, ['userId']),
-  InputType
-) {}
+export class CreatePostInput extends OmitType(Post, ['id'], InputType) {}
+
+@InputType()
+export class PostFiltersInput extends PartialType(CreatePostInput, InputType) {}

@@ -25,11 +25,6 @@ export class PostResolver {
     return this._postService.findAll();
   }
 
-  @ResolveField((of) => User)
-  user(@Parent() post: Post): { __typename: string; id: string } {
-    return { __typename: 'User', id: post.userId };
-  }
-
   @Mutation((returns) => Post)
   createPost(@Args('post') body: CreatePostInput): Promise<Post> {
     return this._postService.create(body);

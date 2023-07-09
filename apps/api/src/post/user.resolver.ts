@@ -1,16 +1,13 @@
 import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
 import { PostService } from './post.service';
-import { Post, PostFiltersInput } from './dto/post.dto';
+import { Post, PostFiltersInput, UserPosts } from './dto/post.dto';
 import { User } from './dto/post.dto';
 @Resolver((of) => User)
 export class UsersResolver {
   constructor(private readonly postService: PostService) {}
 
-  @ResolveField((of) => [Post], { nullable: 'itemsAndList' })
-  public async posts(
-    @Args('postFilters') postFilters: PostFiltersInput,
-    @Parent() user: User
-  ): Promise<Post[]> {
-    return this.postService.forUser(user.id, postFilters);
+  @ResolveField((of) => [UserPosts])
+  public async userPostItems(@Parent() user: User): Promise<UserPosts[]> {
+    return this.postService.forUser(user.userPostItemIds);
   }
 }

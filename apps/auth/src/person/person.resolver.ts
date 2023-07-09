@@ -18,10 +18,8 @@ export class PersonResolver {
   }
 
   @Query((returns) => [User], { name: 'users' })
-  async getUsers(
-    @Args('userFilters') userFilters: UserFilterInput
-  ): Promise<User[]> {
-    return this._personService.findAll(userFilters);
+  async getUsers(): Promise<User[]> {
+    return this._personService.findAll();
   }
 
   @ResolveReference()
