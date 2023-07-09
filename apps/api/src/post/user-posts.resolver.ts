@@ -17,14 +17,14 @@ export class UserPostsResolver {
     private readonly userPostsService: UserPostsService
   ) {}
 
-  @Query((returns) => UserPosts)
-  getUserPosts() {
+  @Query((returns) => [UserPosts], { name: 'userPosts' })
+  async getUserPosts(): Promise<UserPosts[]> {
     return this.userPostsService.findAll();
   }
 
   @ResolveField((type) => [String])
   userPostItemIds(@Parent() userPosts: UserPosts) {
-    return this.postService.forUser([userPosts.userId]);
+    return this.postService.forUser(userPosts.userId, userPosts.postId);
   }
 
   @Mutation((returns) => UserPosts)

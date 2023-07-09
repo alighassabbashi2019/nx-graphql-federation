@@ -24,7 +24,7 @@ export class PostService {
     return this._postRepo.find();
   }
 
-  forUser(ids: string[]): Promise<UserPosts[]> {
-    return this._userPostsRepo.findBy({ id: In(ids) });
+  forUser(id: string, postId: number): Promise<UserPosts[]> {
+    return this._userPostsRepo.findBy({ userId: id, postId });
   }
 }

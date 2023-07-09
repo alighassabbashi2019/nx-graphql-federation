@@ -25,7 +25,7 @@ directive @override(from: String!) on FIELD_DEFINITION
 type User {
   id: String!
   userPostItemIds: [String!]!
-  userPostItems: [UserPosts!]!
+  userPostItems(postId: Float!): [UserPosts!]!
 }
 
 type Post {
@@ -44,7 +44,7 @@ type UserPosts {
 type Query {
   post(id: Int!): Post!
   posts: [Post!]!
-  getUserPosts: UserPosts!
+  userPosts: [UserPosts!]!
 }
 
 type Mutation {
