@@ -10,7 +10,7 @@ export class UserPostsService {
     private readonly _userPostsRepo: Repository<UserPosts>
   ) {}
 
-  findAll() {
+  async findAll(): Promise<UserPosts[]> {
     return this._userPostsRepo.find();
   }
 

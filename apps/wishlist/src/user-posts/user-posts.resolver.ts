@@ -15,6 +15,7 @@ import { Query } from '@nestjs/graphql';
 export class UserPostsResolver {
   constructor(private readonly userPostsService: UserPostsService) {}
 
+<<<<<<< HEAD:apps/wishlist/src/user-posts/user-posts.resolver.ts
   @Query((returns) => [UserPosts])
   getUserPosts() {
     return this.userPostsService.findAll();
@@ -29,6 +30,16 @@ export class UserPostsResolver {
       name: 'emad',
       age: 23,
     };
+=======
+  @Query((returns) => [UserPosts], { name: 'userPosts' })
+  async getUserPosts(): Promise<UserPosts[]> {
+    return this.userPostsService.findAll();
+  }
+
+  @ResolveField((type) => [String])
+  userPostItemIds(@Parent() userPosts: UserPosts) {
+    return this.postService.forUser(userPosts.userId, userPosts.postId);
+>>>>>>> bb90dab2c61f6eb8e09b4c518cf5bd67fc61dc08:apps/api/src/post/user-posts.resolver.ts
   }
 
   @Mutation((returns) => UserPosts)
