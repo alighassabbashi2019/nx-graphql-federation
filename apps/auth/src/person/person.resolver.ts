@@ -27,6 +27,7 @@ export class PersonResolver {
     __typename: string;
     id: string;
   }): Promise<User> {
+    console.log(reference);
     return this._personService.findById(reference.id);
   }
 

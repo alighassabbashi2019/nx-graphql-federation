@@ -7,7 +7,7 @@ import {
   OmitType,
   PartialType,
 } from '@nestjs/graphql';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Directive('@extends')
@@ -17,12 +17,13 @@ export class User {
   @Directive('@external')
   id: string;
 
-  @Field((type) => [String])
-  userPostItemIds: string[];
+  @Field((type) => [Int])
+  @Directive('@external')
+  userPostItemIds: number[];
 
-  @Field((type) => [UserPosts])
+  @Field((type) => [Post])
   @Directive('@requires(fields: "userPostItemIds")')
-  userPostItems: UserPosts[];
+  userPostItems: Post[];
 }
 
 @Entity()
@@ -41,25 +42,6 @@ export class Post {
   @Field((type) => Int)
   votes: number;
 }
-
-@ObjectType()
-@Entity()
-export class UserPosts {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  @Field()
-  userId: string;
-
-  @Column()
-  @Field((type) => Int)
-  postId: number;
-}
-
-@InputType()
-export class assignInput extends OmitType(UserPosts, ['id'], InputType) {}
 
 @InputType()
 export class CreatePostInput extends OmitType(Post, ['id'], InputType) {}
