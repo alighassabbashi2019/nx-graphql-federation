@@ -29,12 +29,7 @@ export class PersonResolver {
     __typename: string;
     id: string;
   }): Promise<User> {
-<<<<<<< HEAD
     console.log(reference);
-=======
-    console.log('from reference resolver');
-
->>>>>>> bb90dab2c61f6eb8e09b4c518cf5bd67fc61dc08
     return this._personService.findById(reference.id);
   }
 

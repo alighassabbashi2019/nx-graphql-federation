@@ -36,9 +36,9 @@ type Query {
 }
 
 input UserFilterInput {
-  name: String
   age: Int
   email: String
+  name: String
 }
 
 type Mutation {
