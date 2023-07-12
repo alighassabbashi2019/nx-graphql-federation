@@ -1,0 +1,72 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @key(fields: String!, resolvable: Boolean = true) repeatable on OBJECT | INTERFACE
+
+directive @extends on OBJECT | INTERFACE
+
+directive @external on OBJECT | FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+directive @shareable on FIELD_DEFINITION | OBJECT
+
+directive @link(url: String!, import: [link__Import]) on SCHEMA
+
+directive @tag(name: String!) repeatable on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+directive @inaccessible on FIELD_DEFINITION | OBJECT | INTERFACE | UNION | ARGUMENT_DEFINITION | SCALAR | ENUM | ENUM_VALUE | INPUT_OBJECT | INPUT_FIELD_DEFINITION
+
+directive @override(from: String!) on FIELD_DEFINITION
+
+type PageInfo {
+  hasPreviousPage: Boolean!
+  hasNextPage: Boolean!
+  startCursor: String!
+  endCursor: String!
+  totalEdges: Int!
+  edgesPerPage: Int
+  totalPages: Int
+  page: Int
+}
+
+type Post {
+  id: String!
+  title: String!
+  description: String!
+  userId: String!
+}
+
+type PostConnectionEdge {
+  cursor: String!
+  node: Post!
+}
+
+type PostConnection {
+  pageInfo: PageInfo!
+  edges: PostConnectionEdge!
+}
+
+type User {
+  id: String!
+  posts(after: String, befor: String, first: Int, last: Int, edgesPerPage: Int, page: Int): [PostConnection!]!
+}
+
+type Query {
+  getPost(id: String!): Post!
+}
+
+type Mutation {
+  createNewPost(body: CreatePostInput!): Post!
+}
+
+input CreatePostInput {
+  title: String!
+  description: String!
+  userId: String!
+}
+
+scalar link__Import
