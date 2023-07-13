@@ -16,7 +16,7 @@ export function Connection<E extends ConnectionEdge<GqlTypeReference>>(
     @Field()
     public readonly pageInfo!: PageInfo;
 
-    @Field(() => EdgeType)
+    @Field(() => [EdgeType])
     public readonly edges: E[];
   }
   return _Connection;

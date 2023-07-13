@@ -6,6 +6,7 @@
     "auth:serve": "nx serve auth",
     "api:serve": "nx serve api",
     "wishlist:serve": "nx serve wishlist",
+    "posts:serve": "nx serve posts",
     "graph:serve": "nx serve graph"
   },
   "private": true,

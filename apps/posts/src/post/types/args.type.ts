@@ -13,7 +13,7 @@ export class ConnectionArgs {
   @IsOptional()
   @IsNotEmpty()
   @IsBase64()
-  public readonly befor?: string;
+  public readonly before?: string;
 
   @Field(() => Int, { nullable: true })
   @IsOptional()

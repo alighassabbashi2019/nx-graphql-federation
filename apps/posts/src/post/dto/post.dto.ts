@@ -3,8 +3,10 @@ import {
   Directive,
   Field,
   InputType,
+  Int,
   ObjectType,
   OmitType,
+  PickType,
 } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -44,6 +46,21 @@ export class CreatePostInput extends OmitType(Post, ['id'], InputType) {}
 @ArgsType()
 export class PostConnectionArgs extends ConnectionArgs {}
 
+@ArgsType()
+export class PostCountFilters extends PickType(PostConnectionArgs, [
+  'after',
+  'before',
+]) {}
+
+@ArgsType()
+export class FindUserPostsFilters extends PostCountFilters {
+  @Field(() => Int)
+  skip: number;
+
+  @Field(() => Int)
+  take: number;
+}
+
 @ObjectType()
 @Directive('@extends')
 @Directive('@key(fields: "id")')
@@ -51,6 +68,6 @@ export class User {
   @Field()
   id: string;
 
-  @Field(() => [PostConnection])
+  @Field(() => PostConnection)
   posts: PostConnection;
 }

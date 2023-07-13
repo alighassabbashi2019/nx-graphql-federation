@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreatePostInput, Post, PostConnectionArgs } from './dto/post.dto';
-import { Repository } from 'typeorm';
+import {
+  CreatePostInput,
+  FindUserPostsFilters,
+  Post,
+  PostCountFilters,
+} from './dto/post.dto';
+import { LessThan, MoreThan, Repository } from 'typeorm';
 
 @Injectable()
 export class PostService {
@@ -18,11 +23,35 @@ export class PostService {
     return this._postRepo.findOneBy({ id });
   }
 
-  findUserPosts(userId: string, args: PostConnectionArgs): Promise<Post[]> {
+  countUserPosts(
+    userId: string,
+    cursorData: PostCountFilters
+  ): Promise<number> {
+    const findWhereOptions = [];
+    if (cursorData.after) {
+      findWhereOptions.push({ userId: MoreThan(cursorData.after) });
+    }
+    if (cursorData.before) {
+      findWhereOptions.push({ userId: LessThan(cursorData.before) });
+    }
+    return this._postRepo.count({
+      where: [...findWhereOptions, { userId }],
+    });
+  }
+
+  findUserPosts(userId: string, args: FindUserPostsFilters): Promise<Post[]> {
+    const findWhereOptions = [];
+    if (args.after) {
+      findWhereOptions.push({ userId: MoreThan(args.after) });
+    }
+    if (args.before) {
+      findWhereOptions.push({ userId: LessThan(args.before) });
+    }
     return this._postRepo.find({
-      where: { userId },
-      take: args.first,
-      skip: +args.after,
+      where: [...findWhereOptions, { userId }],
+      order: { id: 'ASC' },
+      take: args.take,
+      skip: args.skip,
     });
   }
 }

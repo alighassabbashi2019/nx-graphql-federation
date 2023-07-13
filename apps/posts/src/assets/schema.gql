@@ -47,12 +47,12 @@ type PostConnectionEdge {
 
 type PostConnection {
   pageInfo: PageInfo!
-  edges: PostConnectionEdge!
+  edges: [PostConnectionEdge!]!
 }
 
 type User {
   id: String!
-  posts(after: String, befor: String, first: Int, last: Int, edgesPerPage: Int, page: Int): [PostConnection!]!
+  posts(after: String, before: String, first: Int, last: Int, edgesPerPage: Int, page: Int): PostConnection!
 }
 
 type Query {
