@@ -17,12 +17,18 @@ export class User {
   @Directive('@external')
   id: string;
 
+  @Field((type) => [Int])
+  @Directive('@external')
+  userPostItemIds: number[];
+
   @Field((type) => [Post])
-  posts: Post[];
+  @Directive('@requires(fields: "userPostItemIds")')
+  userPostItems: Post[];
 }
 
 @Entity()
 @ObjectType()
+@Directive('@key(fields: "id")')
 export class Post {
   @PrimaryGeneratedColumn()
   @Field((type) => Int)
@@ -35,24 +41,10 @@ export class Post {
   @Column()
   @Field((type) => Int)
   votes: number;
-
-  @Column()
-  @Field()
-  userId: string;
-
-  @Field((type) => User)
-  user?: User;
 }
 
 @InputType()
-export class CreatePostInput extends OmitType(
-  Post,
-  ['id', 'user'],
-  InputType
-) {}
+export class CreatePostInput extends OmitType(Post, ['id'], InputType) {}
 
 @InputType()
-export class PostFiltersInput extends PartialType(
-  OmitType(CreatePostInput, ['userId']),
-  InputType
-) {}
+export class PostFiltersInput extends PartialType(CreatePostInput, InputType) {}

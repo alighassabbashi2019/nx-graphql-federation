@@ -1,13 +1,13 @@
 {
-  "name": "graph-e2e",
+  "name": "posts-e2e",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["graph"],
+  "implicitDependencies": ["posts"],
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
-        "jestConfig": "apps/graph-e2e/jest.config.ts",
+        "jestConfig": "apps/posts-e2e/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -15,7 +15,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/graph-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/posts-e2e/**/*.{js,ts}"]
       }
     }
   }

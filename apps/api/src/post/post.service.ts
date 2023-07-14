@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreatePostInput, Post, PostFiltersInput } from './dto/post.dto';
+import { In, Repository } from 'typeorm';
+import { CreatePostInput, Post } from './dto/post.dto';
 
 @Injectable()
 export class PostService {
@@ -17,11 +17,12 @@ export class PostService {
   findById(id: number): Promise<Post> {
     return this._postRepo.findOne({ where: { id } });
   }
+
   findAll(): Promise<Post[]> {
     return this._postRepo.find();
   }
 
-  forUser(id: string, postFilters: PostFiltersInput): Promise<Post[]> {
-    return this._postRepo.find({ where: { ...postFilters, userId: id } });
+  forUser(ids: number[]): Promise<Post[]> {
+    return this._postRepo.findBy({ id: In(ids) });
   }
 }

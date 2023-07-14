@@ -19,6 +19,7 @@ export class User {
 
   @Column()
   @Field()
+  @Directive('@shareable')
   name: string;
 
   @Column()
@@ -35,11 +36,14 @@ export class User {
 }
 
 @InputType()
-export class CreateUserInput extends OmitType(User, ['id'], InputType) {}
+export class CreateUserInput extends OmitType(User, ['id', 'name'], InputType) {
+  @Field()
+  name: string;
+}
 
 @InputType()
 export class UpdateUserInput extends PartialType(
-  OmitType(User, ['id', 'passowrd'], InputType)
+  OmitType(CreateUserInput, ['passowrd'], InputType)
 ) {}
 
 @InputType()
