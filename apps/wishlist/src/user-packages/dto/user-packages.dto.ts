@@ -1,4 +1,3 @@
-import { Post } from '@nestjs/common';
 import {
   ObjectType,
   Field,
@@ -21,13 +20,13 @@ export class User {
   @Directive('@external')
   name: string;
 
-  @Field((type) => [Int])
-  userPostItemIds: number[];
+  @Field(() => [Int])
+  userPackagesIds: number[];
 }
 
 @ObjectType()
 @Entity()
-export class UserPosts {
+export class UserPackages {
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -37,16 +36,16 @@ export class UserPosts {
   userId: string;
 
   @Column()
-  @Field((type) => Int)
-  postId: number;
+  @Field(() => Int)
+  packageId: number;
 
-  @Field((type) => User)
+  @Field(() => User)
   user: User;
 }
 
 @InputType()
 export class assignInput extends OmitType(
-  UserPosts,
+  UserPackages,
   ['id', 'user'],
   InputType
 ) {}

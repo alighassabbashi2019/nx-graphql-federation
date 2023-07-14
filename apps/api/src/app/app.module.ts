@@ -8,15 +8,15 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
-import { PostModule } from '../post/post.module';
+import { PackagesModule } from '../packages/packages.module';
 import { join } from 'path';
-import { User } from '../post/dto/post.dto';
+import { User } from '../packages/dto/packages.dto';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'post.sqlite',
+      database: 'packages.sqlite',
       synchronize: true,
       autoLoadEntities: true,
     }),
@@ -28,7 +28,7 @@ import { User } from '../post/dto/post.dto';
         orphanedTypes: [User],
       },
     }),
-    PostModule,
+    PackagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,11 +19,10 @@ export class User {
 
   @Column()
   @Field()
-  @Directive('@shareable')
   name: string;
 
   @Column()
-  @Field((type) => Int)
+  @Field(() => Int)
   age: number;
 
   @Column()
@@ -36,7 +35,7 @@ export class User {
 }
 
 @InputType()
-export class CreateUserInput extends OmitType(User, ['id', 'name'], InputType) {
+export class CreateUserInput extends OmitType(User, ['id'], InputType) {
   @Field()
   name: string;
 }

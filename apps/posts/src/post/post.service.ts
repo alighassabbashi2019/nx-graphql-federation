@@ -19,6 +19,10 @@ export class PostService {
     return this._postRepo.save(createdPost);
   }
 
+  findAll() {
+    return this._postRepo.find();
+  }
+
   findById(id: string): Promise<Post> {
     return this._postRepo.findOneBy({ id });
   }

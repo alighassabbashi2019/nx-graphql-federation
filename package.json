@@ -5,8 +5,8 @@
   "scripts": {
     "auth:serve": "nx serve auth",
     "api:serve": "nx serve api",
-    "wishlist:serve": "nx serve wishlist",
     "posts:serve": "nx serve posts",
+    "wishlist:serve": "nx serve wishlist",
     "graph:serve": "nx serve graph"
   },
   "private": true,
@@ -48,6 +48,7 @@
     "@nestjs/typeorm": "^10.0.0",
     "apollo-server-core": "^3.12.0",
     "axios": "^1.0.0",
+    "class-validator": "^0.14.0",
     "graphql": "^16.7.1",
     "graphql-relay": "^0.10.0",
     "reflect-metadata": "^0.1.13",

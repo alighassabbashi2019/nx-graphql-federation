@@ -52,11 +52,12 @@ type PostConnection {
 
 type User {
   id: String!
-  posts(after: String, before: String, first: Int, last: Int, edgesPerPage: Int, page: Int): PostConnection!
+  posts(after: String, before: String, first: Int, last: Int, edgesPerPage: Int, page: Int): PostConnection
 }
 
 type Query {
   getPost(id: String!): Post!
+  getPosts: [Post!]!
 }
 
 type Mutation {

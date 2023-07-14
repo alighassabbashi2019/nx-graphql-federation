@@ -36,9 +36,9 @@ type Query {
 }
 
 input UserFilterInput {
+  name: String
   age: Int
   email: String
-  name: String
 }
 
 type Mutation {
@@ -46,10 +46,10 @@ type Mutation {
 }
 
 input CreateUserInput {
+  name: String!
   age: Int!
   email: String!
   passowrd: String!
-  name: String!
 }
 
 scalar link__Import

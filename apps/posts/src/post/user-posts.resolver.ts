@@ -8,7 +8,7 @@ export class UserPostsResolver {
   constructor(private _postService: PostService) {}
 
   @ResolveField(() => PostConnection, { nullable: true })
-  public async posts(
+  async posts(
     @Args() args: PostConnectionArgs,
     @Parent() user: User
   ): Promise<null | PostConnection> {
@@ -26,6 +26,7 @@ export class UserPostsResolver {
       skip,
       take,
     });
+
     return connectionBuilder.build(posts, totalEdges);
   }
 }

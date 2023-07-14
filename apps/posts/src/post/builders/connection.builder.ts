@@ -91,8 +91,7 @@ export abstract class ConnectionBuilder<
   protected async createConnection(
     connection: Connection<TConnectionEdge>
   ): Promise<TConnection> {
-    const con = <TConnection>connection;
-    return con;
+    return <TConnection>connection;
   }
 
   protected extractCursorData(

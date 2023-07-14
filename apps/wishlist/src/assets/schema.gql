@@ -25,27 +25,27 @@ directive @override(from: String!) on FIELD_DEFINITION
 type User {
   id: String!
   name: String!
-  userPostItemIds: [Int!]!
+  userPackagesIds: [Int!]!
 }
 
-type UserPosts {
+type UserPackages {
   id: String!
   userId: String!
-  postId: Int!
+  packageId: Int!
   user: User!
 }
 
 type Query {
-  getUserPosts: [UserPosts!]!
+  getUserPackages: [UserPackages!]!
 }
 
 type Mutation {
-  assignPostToUser(ids: assignInput!): UserPosts!
+  assignPackageToUser(userAndPackage: assignInput!): UserPackages!
 }
 
 input assignInput {
   userId: String!
-  postId: Int!
+  packageId: Int!
 }
 
 scalar link__Import

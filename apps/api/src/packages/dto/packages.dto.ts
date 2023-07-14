@@ -17,21 +17,21 @@ export class User {
   @Directive('@external')
   id: string;
 
-  @Field((type) => [Int])
+  @Field(() => [Int])
   @Directive('@external')
-  userPostItemIds: number[];
+  userPackagesIds: number[];
 
-  @Field((type) => [Post])
-  @Directive('@requires(fields: "userPostItemIds")')
-  userPostItems: Post[];
+  @Field(() => [Packages])
+  @Directive('@requires(fields: "userPackagesIds")')
+  userPackagesItems: Packages[];
 }
 
 @Entity()
 @ObjectType()
 @Directive('@key(fields: "id")')
-export class Post {
+export class Packages {
   @PrimaryGeneratedColumn()
-  @Field((type) => Int)
+  @Field(() => Int)
   id: number;
 
   @Column()
@@ -39,12 +39,19 @@ export class Post {
   title: string;
 
   @Column()
-  @Field((type) => Int)
-  votes: number;
+  @Field(() => Int)
+  count: number;
 }
 
 @InputType()
-export class CreatePostInput extends OmitType(Post, ['id'], InputType) {}
+export class CreatePackagesInput extends OmitType(
+  Packages,
+  ['id'],
+  InputType
+) {}
 
 @InputType()
-export class PostFiltersInput extends PartialType(CreatePostInput, InputType) {}
+export class PackagesFiltersInput extends PartialType(
+  CreatePackagesInput,
+  InputType
+) {}

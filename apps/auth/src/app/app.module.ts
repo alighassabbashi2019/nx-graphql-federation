@@ -13,7 +13,6 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    PersonModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'auth.sqlite',
@@ -25,6 +24,7 @@ import { join } from 'path';
       autoSchemaFile: join(process.cwd(), '/apps/auth/src/assets/schema.gql'),
       useGlobalPrefix: true,
     }),
+    PersonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

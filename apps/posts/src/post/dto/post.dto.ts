@@ -66,8 +66,9 @@ export class FindUserPostsFilters extends PostCountFilters {
 @Directive('@key(fields: "id")')
 export class User {
   @Field()
+  @Directive('@external')
   id: string;
 
-  @Field(() => PostConnection)
+  @Field(() => PostConnection, { nullable: true })
   posts: PostConnection;
 }

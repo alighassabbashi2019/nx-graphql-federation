@@ -18,9 +18,7 @@ export class PersonService {
     return this._userRepo.findOne({ where: { id } });
   }
 
-  findAll(userFilters?: UserFilterInput): Promise<User[]> {
-    console.log(userFilters);
-
+  async findAll(userFilters?: UserFilterInput): Promise<User[]> {
     return this._userRepo.find({ where: { ...userFilters } });
   }
 }

@@ -8,16 +8,16 @@ import {
 import { CreateUserInput, User, UserFilterInput } from './dto/user.dto';
 import { PersonService } from './person.service';
 
-@Resolver((of) => User)
+@Resolver(() => User)
 export class PersonResolver {
   constructor(private readonly _personService: PersonService) {}
 
-  @Query((returns) => User, { name: 'user' })
+  @Query(() => User, { name: 'user' })
   getUser(@Args('id') id: string): Promise<User> {
     return this._personService.findById(id);
   }
 
-  @Query((returns) => [User], { name: 'users' })
+  @Query(() => [User], { name: 'users' })
   async getUsers(
     @Args('userFilters') userfilters: UserFilterInput
   ): Promise<User[]> {
@@ -29,11 +29,10 @@ export class PersonResolver {
     __typename: string;
     id: string;
   }): Promise<User> {
-    console.log(reference);
     return this._personService.findById(reference.id);
   }
 
-  @Mutation((returns) => User)
+  @Mutation(() => User)
   createUser(@Args('user') body: CreateUserInput) {
     return this._personService.create(body);
   }
